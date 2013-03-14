@@ -285,7 +285,7 @@ class c_icap (
   }
 
   $manage_service_autorestart = $c_icap::bool_service_autorestart ? {
-    true    => Service[c_icap],
+    true    => Service['c-icap'],
     false   => undef,
   }
 
