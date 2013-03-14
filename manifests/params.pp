@@ -77,8 +77,8 @@ class c_icap::params {
   }
 
   $init_template = $::operatingsystem ? {
-    /(?i:Debian|Ubuntu|Mint)/ => 'c-icap/c-icap.init.Debian',
-    /(?i:Archlinux)/          => 'c-icap/c-icap.init.Archlinux',
+    /(?i:Debian|Ubuntu|Mint)/ => 'c_icap/c-icap.init.Debian.erb',
+    /(?i:Archlinux)/          => 'c_icap/c-icap.init.Archlinux.erb',
     default                   => undef,
   }
 
