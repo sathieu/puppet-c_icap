@@ -1,0 +1,20 @@
+define c_icap::module(
+  $absent = false
+) {
+  include c_icap
+
+  $bool_absent=any2bool($absent)
+  $manage_package = $bool_absent ? {
+    true  => 'absent',
+    false => 'present',
+  }
+
+  if $c_icap::module_package_prefix {
+    package {
+      "c-icap-${name}":
+        name   => "${c_icap::module_package_prefix}${name}${c_icap::module_package_suffix}",
+        ensure => $manage_package,
+        noop   => $c_icap::bool_noops,
+    }
+  }
+}

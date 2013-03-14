@@ -20,6 +20,16 @@ class c_icap::params {
     default => 'c-icap',
   }
 
+  $module_package_prefix = $::operatingsystem ? {
+    /(?i:Debian|Ubuntu|Mint)/ => 'libc-icap-mod-',
+    default                   => '',
+  }
+
+  $module_package_suffix = $::operatingsystem ? {
+    /(?i:Debian|Ubuntu|Mint)/ => '',
+    default                   => '',
+  }
+
   $service = $::operatingsystem ? {
     default => 'c-icap',
   }
