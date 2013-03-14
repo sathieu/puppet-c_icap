@@ -17,29 +17,36 @@ For detailed info about the logic and usage patterns of Example42 modules check 
 
 ## USAGE - Basic management
 
-* Install c_icap with default settings
+* Install c-icap with default settings
 
         class { 'c_icap': }
 
-* Install a specific version of c_icap package
+* Install a specific version of c-icap package
 
         class { 'c_icap':
           version => '1.0.1',
         }
 
-* Disable c_icap service.
+* Install two c-icap modules
+
+        c_icap::module {
+          'clamav':;
+          'urlcheck':;
+        }
+
+* Disable c-icap service.
 
         class { 'c_icap':
           disable => true
         }
 
-* Remove c_icap package
+* Remove c-icap package
 
         class { 'c_icap':
           absent => true
         }
 
-* Enable auditing without without making changes on existing c_icap configuration *files*
+* Enable auditing without without making changes on existing c-icap configuration *files*
 
         class { 'c_icap':
           audit_only => true
@@ -56,7 +63,7 @@ For detailed info about the logic and usage patterns of Example42 modules check 
 * Use custom sources for main config file 
 
         class { 'c_icap':
-          source => [ "puppet:///modules/example42/c_icap/c_icap.conf-${hostname}" , "puppet:///modules/example42/c_icap/c_icap.conf" ], 
+          source => [ "puppet:///modules/example42/c_icap/c-icap.conf-${hostname}" , "puppet:///modules/example42/c_icap/c-icap.conf" ],
         }
 
 
@@ -70,7 +77,7 @@ For detailed info about the logic and usage patterns of Example42 modules check 
 * Use custom template for main config file. Note that template and source arguments are alternative. 
 
         class { 'c_icap':
-          template => 'example42/c_icap/c_icap.conf.erb',
+          template => 'example42/c_icap/c-icap.conf.erb',
         }
 
 * Automatically include a custom subclass
