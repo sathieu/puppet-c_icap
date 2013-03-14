@@ -235,6 +235,8 @@ class c_icap (
   $config_file_owner   = params_lookup( 'config_file_owner' ),
   $config_file_group   = params_lookup( 'config_file_group' ),
   $config_file_init    = params_lookup( 'config_file_init' ),
+  $init_source         = params_lookup( 'init_source' ),
+  $init_template       = params_lookup( 'init_template' ),
   $pid_file            = params_lookup( 'pid_file' ),
   $data_dir            = params_lookup( 'data_dir' ),
   $log_dir             = params_lookup( 'log_dir' ),
@@ -325,12 +327,38 @@ class c_icap (
     default   => template($c_icap::template),
   }
 
+  $manage_init_source = $c_icap::init_source ? {
+    ''        => undef,
+    default   => $c_icap::init_source,
+  }
+
+  $manage_init_content = $c_icap::init_template ? {
+    ''        => undef,
+    default   => template($c_icap::init_template),
+  }
+
   ### Managed resources
   package { $c_icap::package:
     ensure  => $c_icap::manage_package,
     noop    => $c_icap::bool_noops,
   }
 
+  if $config_file_init {
+    file { 'c-icap.init':
+      ensure  => $c_icap::manage_file,
+      path    => $c_icap::config_file_init,
+      mode    => $c_icap::config_file_mode,
+      owner   => $c_icap::config_file_owner,
+      group   => $c_icap::config_file_group,
+      require => Package[$c_icap::package],
+      notify  => $c_icap::manage_service_autorestart,
+      source  => $c_icap::manage_init_source,
+      content => $c_icap::manage_init_content,
+      replace => $c_icap::manage_file_replace,
+      audit   => $c_icap::manage_audit,
+      noop    => $c_icap::bool_noops,
+    }
+  }
   service { 'c-icap':
     ensure     => $c_icap::manage_service_ensure,
     name       => $c_icap::service,

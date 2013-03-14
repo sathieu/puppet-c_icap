@@ -62,7 +62,14 @@ class c_icap::params {
 
   $config_file_init = $::operatingsystem ? {
     /(?i:Debian|Ubuntu|Mint)/ => '/etc/default/c-icap',
-    default                   => '/etc/sysconfig/c-icap',
+    /(?i:Archlinux)/          => '/etc/conf.d/c-icap',
+    default                   => false, # '/etc/sysconfig/c-icap' ?
+  }
+
+  $init_template = $::operatingsystem ? {
+    /(?i:Debian|Ubuntu|Mint)/ => 'c-icap/c-icap.init.Debian',
+    /(?i:Archlinux)/          => 'c-icap/c-icap.init.Archlinux',
+    default                   => undef,
   }
 
   $pid_file = $::operatingsystem ? {
