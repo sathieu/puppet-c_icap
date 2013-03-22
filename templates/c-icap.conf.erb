@@ -209,7 +209,7 @@ TemplateDir <%= scope.function_options_lookup(['TemplateDir', '/usr/share/c_icap
 #	Sets the default language to use for text templates
 # Default:
 #	TemplateDefaultLanguage en
-TemplateDefaultLanguage en
+TemplateDefaultLanguage <%= scope.function_options_lookup(['TemplateDefaultLanguage', 'en']) %>
 
 #TemplateReloadTime 360
 #TemplateCacheSize 20
@@ -235,7 +235,7 @@ LoadMagicFile <%= scope.function_options_lookup(['LoadMagicFile', @config_dir + 
 #	groups the internal authentication mechanism will be used.
 # Default:
 #	RemoteProxyUsers off
-RemoteProxyUsers <%= scope.function_options_lookup(['RemoteProxyUsers', 'off') %>
+RemoteProxyUsers <%= scope.function_options_lookup(['RemoteProxyUsers', 'off']) %>
 
 # TAG: RemoteProxyUserHeader
 # Format: RemoteProxyUserHeader Header
@@ -244,7 +244,7 @@ RemoteProxyUsers <%= scope.function_options_lookup(['RemoteProxyUsers', 'off') %
 #	the authenticated client username to c-icap server 
 # Default:
 #	RemoteProxyUserHeader X-Authenticated-User
-RemoteProxyUserHeader <%= scope.function_options_lookup(['RemoteProxyUserHeader', 'X-Authenticated-User') %>
+RemoteProxyUserHeader <%= scope.function_options_lookup(['RemoteProxyUserHeader', 'X-Authenticated-User']) %>
 
 # TAG: RemoteProxyUserHeaderEncoded
 # Format: RemoteProxyUserHeaderEncoded onoff
@@ -252,7 +252,7 @@ RemoteProxyUserHeader <%= scope.function_options_lookup(['RemoteProxyUserHeader'
 #	Set it to off if the RemoteProxyUserHeader is not base64 encoded
 # Default:
 #	RemoteProxyUserHeaderEncoded on
-RemoteProxyUserHeaderEncoded <%= scope.function_options_lookup(['RemoteProxyUserHeaderEncoded', 'on') %>
+RemoteProxyUserHeaderEncoded <%= scope.function_options_lookup(['RemoteProxyUserHeaderEncoded', 'on']) %>
 
 # TAG: AuthMethod
 # Format: AuthMethod Method Authenticator
