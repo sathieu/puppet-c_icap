@@ -77,7 +77,7 @@ For detailed info about the logic and usage patterns of Example42 modules check 
 * Use custom template for main config file. Note that template and source arguments are alternative. 
 
         class { 'c_icap':
-          template => 'example42/c_icap/c-icap.conf.erb',
+          template => 'c_icap/c-icap.conf.erb',
         }
 
 * Automatically include a custom subclass

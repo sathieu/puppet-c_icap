@@ -87,7 +87,7 @@ class c_icap::params {
   }
 
   $data_dir = $::operatingsystem ? {
-    default => '/etc/c-icap',
+    default => '/var/tmp',
   }
 
   $log_dir = $::operatingsystem ? {
