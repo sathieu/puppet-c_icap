@@ -370,6 +370,11 @@ class c_icap (
     require    => Package[$c_icap::package],
     noop       => $c_icap::bool_noops,
   }
+  exec { 'c-icap_reconfigure':
+    command     => "echo -n 'reconfigure' > ${c_icap::ctl_file}",
+    provider    => 'shell',
+    refreshonly => true,
+  }
 
   file { 'c-icap.conf':
     ensure  => $c_icap::manage_file,

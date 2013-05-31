@@ -86,6 +86,10 @@ class c_icap::params {
     default => '/var/run/c-icap/c-icap.pid',
   }
 
+  $ctl_file = $::operatingsystem ? {
+    default => '/var/run/c-icap/c-icap.ctl',
+  }
+
   $data_dir = $::operatingsystem ? {
     default => '/var/tmp',
   }
