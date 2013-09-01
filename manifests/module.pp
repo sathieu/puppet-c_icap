@@ -14,7 +14,7 @@ define c_icap::module(
       "c-icap-${name}":
         ensure => $manage_package,
         name   => "${c_icap::module_package_prefix}${name}${c_icap::module_package_suffix}",
-        noop   => $c_icap::bool_noops,
+        noop   => $c_icap::noops,
     }
   }
 }
