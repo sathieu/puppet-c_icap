@@ -106,6 +106,10 @@ class c_icap::params {
     default => '/var/log/c-icap/access.log',
   }
 
+  $modules_dir = $::operatingsystem ? {
+    default => '/usr/lib/c_icap',
+  }
+
   $port = '1344'
   $protocol = 'tcp'
 

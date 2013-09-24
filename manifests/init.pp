@@ -185,6 +185,12 @@
 # [*log_file*]
 #   Log file(s). Used by puppi
 #
+# [*accesslog_file*]
+#   Access log file
+#
+# [*modules_dir*]
+#   Module/Plugin directory
+#
 # [*port*]
 #   The listening port, if any, of the service.
 #   This is used by monitor, firewall and puppi (optional) components
@@ -244,6 +250,7 @@ class c_icap (
   $log_dir               = params_lookup( 'log_dir' ),
   $log_file              = params_lookup( 'log_file' ),
   $accesslog_file        = params_lookup( 'accesslog_file' ),
+  $modules_dir           = params_lookup( 'modules_dir' ),
   $port                  = params_lookup( 'port' ),
   $protocol              = params_lookup( 'protocol' )
   ) inherits c_icap::params {
