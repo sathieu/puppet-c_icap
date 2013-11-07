@@ -246,6 +246,7 @@ class c_icap (
   $init_source           = params_lookup( 'init_source' ),
   $init_template         = params_lookup( 'init_template' ),
   $pid_file              = params_lookup( 'pid_file' ),
+  $ctl_file              = params_lookup( 'ctl_file' ),
   $data_dir              = params_lookup( 'data_dir' ),
   $log_dir               = params_lookup( 'log_dir' ),
   $log_file              = params_lookup( 'log_file' ),
