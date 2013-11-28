@@ -1,10 +1,10 @@
-name 'example42-c_icap'
-version '2.0.10'
+name 'sathieu-c_icap'
+version '1.0.0'
 
 author 'Mathieu Parent'
 license 'Apache2'
 project_page 'http://www.example42.com'
-source 'https://github.com/example42/puppet-c_icap'
+source 'https://github.com/sathieu/puppet-c_icap'
 summary 'Puppet module for c-icap'
 description 'This module installs and manages c_icap. Check README for details.'
 dependency 'example42/puppi', '>=2.0.0'
