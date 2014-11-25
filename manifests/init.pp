@@ -231,7 +231,7 @@ class c_icap (
   $noops                 = params_lookup( 'noops' ),
   $package               = params_lookup( 'package' ),
   $module_package_prefix = params_lookup( 'module_package_prefix' ),
-  $module_package_suffix = params_lookup( 'module_package_suffixw' ),
+  $module_package_suffix = params_lookup( 'module_package_suffix' ),
   $service               = params_lookup( 'service' ),
   $service_status        = params_lookup( 'service_status' ),
   $process               = params_lookup( 'process' ),
