@@ -243,8 +243,7 @@ class c_icap (
   $config_file_owner     = params_lookup( 'config_file_owner' ),
   $config_file_group     = params_lookup( 'config_file_group' ),
   $config_file_init      = params_lookup( 'config_file_init' ),
-  $init_source           = params_lookup( 'init_source' ),
-  $init_template         = params_lookup( 'init_template' ),
+  $init_start_shellvar   = params_lookup( 'init_start_shellvar' ),
   $pid_file              = params_lookup( 'pid_file' ),
   $ctl_file              = params_lookup( 'ctl_file' ),
   $data_dir              = params_lookup( 'data_dir' ),
@@ -337,14 +336,12 @@ class c_icap (
     default   => template($c_icap::template),
   }
 
-  $manage_init_source = $c_icap::init_source ? {
-    ''        => undef,
-    default   => $c_icap::init_source,
-  }
-
-  $manage_init_content = $c_icap::init_template ? {
-    ''        => undef,
-    default   => template($c_icap::init_template),
+  $should_start = $c_icap::bool_disable ? {
+    true    => 'no',
+    default =>  $c_icap::bool_absent ? {
+      true    => undef,
+      default => 'yes',
+    },
   }
 
   ### Managed resources
@@ -353,19 +350,14 @@ class c_icap (
     noop    => $c_icap::noops,
   }
 
-  if $config_file_init {
-    file { 'c-icap.init':
-      ensure  => $c_icap::manage_file,
-      path    => $c_icap::config_file_init,
-      mode    => $c_icap::config_file_mode,
-      owner   => $c_icap::config_file_owner,
-      group   => $c_icap::config_file_group,
+  if $config_file_init != undef and $should_start != undef {
+    augeas {'c-icap::set_start':
+      context => "/files/${c_icap::config_file_init}",
+      changes => "set ${init_start_shellvar} ${should_start}",
+      incl    => $c_icap::config_file_init,
+      lens    => 'Shellvars.lns',
       require => Package[$c_icap::package],
       notify  => $c_icap::manage_service_autorestart,
-      source  => $c_icap::manage_init_source,
-      content => $c_icap::manage_init_content,
-      replace => $c_icap::manage_file_replace,
-      audit   => $c_icap::manage_audit,
       noop    => $c_icap::noops,
     }
   }

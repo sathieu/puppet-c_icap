@@ -73,14 +73,12 @@ class c_icap::params {
   $config_file_init = $::operatingsystem ? {
     /(?i:Debian|Ubuntu|Mint)/ => '/etc/default/c-icap',
     /(?i:Archlinux)/          => '/etc/conf.d/c-icap',
-    default                   => false, # '/etc/sysconfig/c-icap' ?
+    default                   => undef, # '/etc/sysconfig/c-icap' ?
   }
 
-  $init_source = ''
-
-  $init_template = $::operatingsystem ? {
-    /(?i:Debian|Ubuntu|Mint)/ => 'c_icap/c-icap.init.Debian.erb',
-    /(?i:Archlinux)/          => 'c_icap/c-icap.init.Archlinux.erb',
+  $init_start_shellvar = $::operatingsystem ? {
+    /(?i:Debian|Ubuntu|Mint)/ => 'START',
+    /(?i:Archlinux)/          => 'CICAP_ARGS',
     default                   => undef,
   }
 
