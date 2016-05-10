@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe 'c_icap', :type => :class do
   context "on a Debian OS" do
+    let(:node) { 'rspec.example42.com' }
     let :facts do
       {
         :id                     => 'root',
