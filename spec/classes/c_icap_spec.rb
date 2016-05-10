@@ -1,8 +1,8 @@
-require "#{File.join(File.dirname(__FILE__),'..','spec_helper.rb')}"
+require 'spec_helper'
 
-describe 'c_icap' do
+describe 'c_icap', :type => :class do
 
-  let(:title) { 'c_icap' }
+#  let(:title) { 'c_icap' }
   let(:node) { 'rspec.example42.com' }
   let(:facts) { { :ipaddress => '10.42.42.42' } }
 
