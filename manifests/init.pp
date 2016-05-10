@@ -382,7 +382,7 @@ class c_icap (
   }
 
   # The whole c_icap configuration directory can be recursively overriden
-  if $c_icap::source_dir {
+  if $c_icap::source_dir and $c_icap::source_dir != '' {
     file { 'c-icap.dir':
       ensure  => directory,
       path    => $c_icap::config_dir,
@@ -399,7 +399,7 @@ class c_icap (
 
 
   ### Include custom class if $my_class is set
-  if $c_icap::my_class {
+  if $c_icap::my_class and $c_icap::my_class != '' {
     include $c_icap::my_class
   }
 
