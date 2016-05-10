@@ -125,11 +125,6 @@
 #   Can be defined also by the (top scope) variables $c_icap_audit_only
 #   and $audit_only
 #
-# [*noops*]
-#   Set noop metaparameter to true for all the resources managed by the module.
-#   Basically you can run a dryrun for this specific module if you set
-#   this to true. Default: undef
-#
 # Default class params - As defined in c_icap::params.
 # Note that these variables are mostly defined and used in the module itself,
 # overriding the default values might not affected all the involved components.
@@ -228,7 +223,6 @@ class c_icap (
   $firewall_dst          = params_lookup( 'firewall_dst' , 'global' ),
   $debug                 = params_lookup( 'debug' , 'global' ),
   $audit_only            = params_lookup( 'audit_only' , 'global' ),
-  $noops                 = params_lookup( 'noops' ),
   $package               = params_lookup( 'package' ),
   $module_package_prefix = params_lookup( 'module_package_prefix' ),
   $module_package_suffix = params_lookup( 'module_package_suffix' ),
@@ -347,7 +341,6 @@ class c_icap (
   ### Managed resources
   package { $c_icap::package:
     ensure  => $c_icap::manage_package,
-    noop    => $c_icap::noops,
   }
 
   if $config_file_init != undef and $should_start != undef {
@@ -358,7 +351,6 @@ class c_icap (
       lens    => 'Shellvars.lns',
       require => Package[$c_icap::package],
       notify  => $c_icap::manage_service_autorestart,
-      noop    => $c_icap::noops,
     }
   }
   service { 'c-icap':
@@ -368,7 +360,6 @@ class c_icap (
     hasstatus  => $c_icap::service_status,
     pattern    => $c_icap::process,
     require    => Package[$c_icap::package],
-    noop       => $c_icap::noops,
   }
   exec { 'c-icap_reconfigure':
     command     => "echo -n 'reconfigure' > ${c_icap::ctl_file}",
@@ -388,7 +379,6 @@ class c_icap (
     content => $c_icap::manage_file_content,
     replace => $c_icap::manage_file_replace,
     audit   => $c_icap::manage_audit,
-    noop    => $c_icap::noops,
   }
 
   # The whole c_icap configuration directory can be recursively overriden
@@ -404,7 +394,6 @@ class c_icap (
       force   => $c_icap::bool_source_dir_purge,
       replace => $c_icap::manage_file_replace,
       audit   => $c_icap::manage_audit,
-      noop    => $c_icap::noops,
     }
   }
 
@@ -422,7 +411,6 @@ class c_icap (
       ensure    => $c_icap::manage_file,
       variables => $classvars,
       helper    => $c_icap::puppi_helper,
-      noop      => $c_icap::noops,
     }
   }
 
@@ -436,7 +424,6 @@ class c_icap (
         target   => $c_icap::monitor_target,
         tool     => $c_icap::monitor_tool,
         enable   => $c_icap::manage_monitor,
-        noop     => $c_icap::noops,
       }
     }
     if $c_icap::service != '' {
@@ -448,7 +435,6 @@ class c_icap (
         argument => $c_icap::process_args,
         tool     => $c_icap::monitor_tool,
         enable   => $c_icap::manage_monitor,
-        noop     => $c_icap::noops,
       }
     }
   }
@@ -465,7 +451,6 @@ class c_icap (
       direction   => 'input',
       tool        => $c_icap::firewall_tool,
       enable      => $c_icap::manage_firewall,
-      noop        => $c_icap::noops,
     }
   }
 
@@ -479,7 +464,6 @@ class c_icap (
       owner   => 'root',
       group   => 'root',
       content => inline_template('<%= scope.to_hash.reject { |k,v| k.to_s =~ /(uptime.*|path|timestamp|free|.*password.*|.*psk.*|.*key)/ }.to_yaml %>'),
-      noop    => $c_icap::noops,
     }
   }
 
