@@ -13,6 +13,7 @@ describe 'c_icap', :type => :class do
         :path                   => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
         :concat_basedir         => '/dne',
         :is_pe                  => false,
+        :ipaddress              => '10.42.42.42',
       }
     end
 
