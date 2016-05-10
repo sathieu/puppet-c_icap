@@ -354,12 +354,12 @@ class c_icap (
     }
   }
   service { 'c-icap':
-    ensure     => $c_icap::manage_service_ensure,
-    name       => $c_icap::service,
-    enable     => $c_icap::manage_service_enable,
-    hasstatus  => $c_icap::service_status,
-    pattern    => $c_icap::process,
-    require    => Package[$c_icap::package],
+    ensure    => $c_icap::manage_service_ensure,
+    name      => $c_icap::service,
+    enable    => $c_icap::manage_service_enable,
+    hasstatus => $c_icap::service_status,
+    pattern   => $c_icap::process,
+    require   => Package[$c_icap::package],
   }
   exec { 'c-icap_reconfigure':
     command     => "echo -n 'reconfigure' > ${c_icap::ctl_file}",
